@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  db:
+    image: mdillon/postgis:11-alpine
+    container_name: psql-naxa
+    env_file: .env
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    env_file: .env
+    ports:
+      - "5051:80"
+    restart: always
+    depends_on:
+      - db
+
+volumes:
+  pgdata:
